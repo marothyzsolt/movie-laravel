@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Rating
@@ -36,6 +37,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Rating extends Model
 {
+    use SoftDeletes;
+
+    //protected $fillable = ['movie_id', 'acting', 'user_id'];
+    //protected $fillable = ['*']; = protected $guarded = [];
+    protected $guarded = [];
 
     public function user()
     {
@@ -45,6 +51,23 @@ class Rating extends Model
     public function movie()
     {
         return $this->belongsTo(Movie::class);
+    }
+
+    private function calculateAvg()
+    {
+        return collect([
+            $this->acting,
+            $this->visual,
+            $this->story,
+            $this->fun,
+            $this->logics,
+            $this->fin
+        ])->avg();
+    }
+
+    public function getAvgAttribute()
+    {
+        return round($this->calculateAvg(), 1);
     }
 
 }

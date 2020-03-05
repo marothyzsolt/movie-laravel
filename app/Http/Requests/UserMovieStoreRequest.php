@@ -24,7 +24,7 @@ class UserMovieStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'movie' => 'required|numeric|exists:movies,id',
+            'movie_id' => 'required|numeric|exists:movies,id',
             'acting' => 'required|numeric|between:1,10'
         ];
     }

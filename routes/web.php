@@ -12,6 +12,14 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('users/ratings', 'RatingController@index');
+Route::get('users/ratings/{rating}/delete', 'RatingController@destroy')
+    ->name('users.ratings.delete');
+
+Route::get('users/ratings/{rating}/delete/force', 'RatingController@forceDelete')
+    ->name('users.ratings.delete.force');
+Route::get('users/ratings/{rating}/delete/restore', 'RatingController@restore')
+    ->name('users.ratings.delete.restore');
 
 Route::post('users/movies/save', 'UserController@store')->name('users.movies.save');
 

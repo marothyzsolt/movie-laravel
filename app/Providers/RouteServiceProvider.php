@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Rating;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::bind('rating', function($id) {
+            return Rating::withTrashed()->findOrFail($id);
+        });
 
         parent::boot();
     }

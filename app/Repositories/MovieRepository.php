@@ -23,27 +23,17 @@ class MovieRepository extends AbstractRepository implements MovieRepositoryInter
 
     public function all($columns = array('*'))
     {
-        return $this->model
-            ->with('ratings')
-            ->withCount([
-                'ratings as acting' => function($query) {
-                    $query->select(\DB::raw('avg(acting)'));
-                },
-                'ratings as visual' => function($query) {
-                    $query->select(\DB::raw('avg(visual)'));
-                },
-                'ratings as story' => function($query) {
-                    $query->select(\DB::raw('avg(story)'));
-                },
-                'ratings as fun' => function($query) {
-                    $query->select(\DB::raw('avg(fun)'));
-                },
-                'ratings as logics' => function($query) {
-                    $query->select(\DB::raw('avg(logics)'));
-                },
-                'ratings as fin' => function($query) {
-                    $query->select(\DB::raw('avg(fin)'));
-                },
-            ])->get();
+        return $this
+            ->model
+            ->select('movies.*',
+                \DB::raw('AVG(acting) AS acting'),
+                \DB::raw('AVG(visual) AS visual'),
+                \DB::raw('AVG(story) AS story'),
+                \DB::raw('AVG(fun) AS fun'),
+                \DB::raw('AVG(logics) AS logics'),
+                \DB::raw('AVG(fin) AS fin')
+            )
+            ->groupBy('movies.id')
+            ->leftJoin('ratings', 'movies.id', '=', 'ratings.movie_id')->get();
     }
 }
