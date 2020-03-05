@@ -14,14 +14,11 @@
 Route::get('/', 'HomeController@index')->name('main');
 Route::get('users/ratings', 'RatingController@index');
 
-Route::get('users/ratings/{rating}/delete', 'RatingController@destroy')
-    ->name('users.ratings.delete');
-    //->middleware('can:delete,rating');
-
-Route::get('users/ratings/{rating}/delete/force', 'RatingController@forceDelete')
-    ->name('users.ratings.delete.force');
-Route::get('users/ratings/{rating}/delete/restore', 'RatingController@restore')
-    ->name('users.ratings.delete.restore');
+Route::group(['middleware' => ['can:delete,rating'], 'prefix' => 'users/ratings/{rating}/delete', 'as' => 'users.ratings.delete'],function() {
+    Route::get('/', 'RatingController@destroy');
+    Route::get('force', 'RatingController@forceDelete')->name('.force');
+    Route::get('restore', 'RatingController@restore')->name('.restore');
+});
 
 Route::post('users/movies/save', 'UserController@store')->name('users.movies.save');
 

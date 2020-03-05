@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Contracts\MafabServiceInterface;
 use Illuminate\Http\Request;
 use PoLaKoSz\Mafab\Search;
 
 class MovieController extends Controller
 {
+    /**
+     * @var MafabServiceInterface
+     */
+    private $mafabService;
+
+    public function __construct(MafabServiceInterface $mafabService)
+    {
+        $this->mafabService = $mafabService;
+    }
+
     public function index(Request $request)
     {
         return view('movies');
@@ -22,9 +33,8 @@ class MovieController extends Controller
      */
     public function search(Request $request)
     {
-        $mafab = new Search();
-        $movies = $mafab->search( $request->get('name') );
-
-        return back()->withInput($request->all())->withMovies($movies);
+        return back()
+            ->withInput($request->all())
+            ->withMovies($this->mafabService->search($request->get('name')));
     }
 }
