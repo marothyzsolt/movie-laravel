@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Movie;
+use App\QueryFilters\MovieFilter;
 use App\Repositories\Contracts\MovieRepositoryInterface;
 use App\Repositories\Eloquent\AbstractRepository;
 
@@ -21,10 +22,11 @@ class MovieRepository extends AbstractRepository implements MovieRepositoryInter
         $this->find($id);
     }
 
-    public function all($columns = array('*'))
+    public function allWithFilters(MovieFilter $movieFilter)
     {
         return $this
             ->model
+            ->filterBy($movieFilter)
             ->select('movies.*',
                 \DB::raw('AVG(acting) AS acting'),
                 \DB::raw('AVG(visual) AS visual'),

@@ -8,7 +8,8 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    Movie list
+
+                    @include('components.filter')
 
                     <table class="table table-striped">
                         <thead>
@@ -45,7 +46,7 @@
                             @endforeach
                         </select>
 
-                        <input type="number" name="acting" value="5">
+                        <input type="number" name="acting" value="{{old('acting', 5)}}">
                         <input type="number" name="visual" value="5">
                         <input type="number" name="story" value="5">
                         <input type="number" name="fun" value="5">

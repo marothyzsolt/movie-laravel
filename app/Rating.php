@@ -70,4 +70,23 @@ class Rating extends Model
         return round($this->calculateAvg(), 1);
     }
 
+    public function scopeGreatActing($query, $min = 5)
+    {
+        return $query->where('acting', '>', $min);
+    }
+
+    public function scopeGreatVisual($query)
+    {
+        return $query->where('visual', '>', 5);
+    }
+
+    public function scopeGreatStory($query)
+    {
+        return $query->where('story', '>', 5);
+    }
+
+    public function scopeGreatMovie($query)
+    {
+        return $query->greatActing()->greatVisual()->greatStory();
+    }
 }

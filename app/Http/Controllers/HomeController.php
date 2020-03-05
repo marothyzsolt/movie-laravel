@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Movie;
+use App\QueryFilters\MovieFilter;
 use App\Repositories\Contracts\MovieRepositoryInterface;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -19,10 +21,10 @@ class HomeController extends Controller
         $this->movieRepository = $movieRepository;
     }
 
-    public function index()
+    public function index(MovieFilter $movieFilter)
     {
         return view('home', [
-            'movies' => $this->movieRepository->all()
+            'movies' => $this->movieRepository->allWithFilters($movieFilter)
         ]);
     }
 }

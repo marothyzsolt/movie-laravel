@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('main');
 Route::get('users/ratings', 'RatingController@index');
+
 Route::get('users/ratings/{rating}/delete', 'RatingController@destroy')
     ->name('users.ratings.delete');
+    //->middleware('can:delete,rating');
 
 Route::get('users/ratings/{rating}/delete/force', 'RatingController@forceDelete')
     ->name('users.ratings.delete.force');

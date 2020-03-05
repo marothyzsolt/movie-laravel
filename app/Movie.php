@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cerbero\QueryFilters\FiltersRecords;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Movie extends Model
 {
+    use FiltersRecords;
+
     public $timestamps = false;
 
     public function ratings()
