@@ -55,6 +55,12 @@
 
                         <input type="submit" value="Save">
                     </form>
+
+                    <form action="{{route('movies.search')}}" method="post">
+                        @csrf
+                        <input type="text" name="name">
+                        <input type="submit" value="Save">
+                    </form>
                 </div>
             </div>
         </div>

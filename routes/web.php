@@ -25,4 +25,7 @@ Route::get('users/ratings/{rating}/delete/restore', 'RatingController@restore')
 
 Route::post('users/movies/save', 'UserController@store')->name('users.movies.save');
 
+Route::get('movies/search', 'MovieController@index')->name('movies.index');
+Route::post('movies/search', 'MovieController@search')->name('movies.search');
+
 \Illuminate\Support\Facades\Auth::routes();

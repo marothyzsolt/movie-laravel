@@ -20,4 +20,9 @@ class MovieFilter extends QueryFilters
     {
          $this->query->where('year', $year);
     }
+
+    public function name($name)
+    {
+        $this->query->where('name', 'LIKE',"%{$name}%");
+    }
 }
