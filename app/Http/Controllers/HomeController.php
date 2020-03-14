@@ -23,7 +23,7 @@ class HomeController extends Controller
 
     public function index(MovieFilter $movieFilter)
     {
-        return response()->dataJson(FALSE, ['test' => 1]);
+       // return response()->dataJson(FALSE, ['test' => 1]);
 
         return view('home', [
             'movies' => $this->movieRepository->allWithFilters($movieFilter)
